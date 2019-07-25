@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org"
+  th:replace="~{fragments/layout :: layout (~{::body},'sensors')}">
+
+  <body>
+  
+  
+    <h2 th:text="#{sensor_information}">Sensor Information</h2>
+  
+  
+    <table class="table table-striped" th:object="${humiditySensor}">
+      <tr>
+        <th>ID</th>
+        <td><b th:text="*{id}"></b></td>
+      </tr>
+      <tr>
+        <th th:text="#{name}">Name</th>
+        <td><b th:text="*{name}"></b></td>
+      </tr>
+      <tr>
+        <th th:text="#{humidity_current}">Current Humidity</th>
+        <td th:text="*{humidity}"></td>
+      </tr>
+      <tr>
+        <th th:text="#{plant}">Plant</th>
+        <td th:text="*{plant.name}"></td>
+      </tr>
+    </table>
+ 
+  </body>
+
+</html>

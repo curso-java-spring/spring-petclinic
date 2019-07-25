@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org" 
+th:replace="~{fragments/layout :: layout (~{::body},'sensors')}">
+
+  <body>
+
+    <h2 th:text="#{sensors}">Sensors</h2>
+
+    <table id="sensors" class="table table-striped">
+        <thead>
+        <tr>
+        	<th style="width: 150px;">Id</th>
+            <th th:text="#{name}" style="width: 150px;">Name</th>
+            <th th:text="#{humidity}" style="width: 150px;">Humidity</th>
+            <th th:text="#{plant}" style="width: 150px;">Plant</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr th:each="sen : ${sensors}">
+              <td>
+              
+                  <a th:href="@{/sensors/__${sen.id}__}" th:text="${sen.id}"/></a>
+              </td>
+              <td>
+                  <p th:href="@{/sensors/__${sen.id}__}" th:text="${sen.name}"/></p>
+              </td>
+              <td>
+                  <p th:href="@{/sensors/__${sen.id}__}" th:text="${sen.humidity}"/></p>
+              </td>
+              <td>
+                  <p th:href="@{/sensors/__${sen.id}__}" th:text="${sen.plant.name}"/></p>
+              </td>
+          </tr>
+        </tbody>
+    </table>
+
+	<a class="btn btn-default" th:href="@{/sensors/new}">Add Sensor</a>
+	
+  </body>
+</html>

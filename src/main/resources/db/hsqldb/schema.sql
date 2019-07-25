@@ -1,38 +1,7 @@
-DROP TABLE vet_specialties IF EXISTS;
-DROP TABLE vets IF EXISTS;
-DROP TABLE specialties IF EXISTS;
-DROP TABLE visits IF EXISTS;
-DROP TABLE pets IF EXISTS;
-DROP TABLE types IF EXISTS;
 DROP TABLE owners IF EXISTS;
-DROP TABLE products IF EXISTS;
+DROP TABLE plants IF EXISTS;
+DROP TABLE sensors IF EXISTS;
 
-
-CREATE TABLE vets (
-  id         INTEGER IDENTITY PRIMARY KEY,
-  first_name VARCHAR(30),
-  last_name  VARCHAR(30)
-);
-CREATE INDEX vets_last_name ON vets (last_name);
-
-CREATE TABLE specialties (
-  id   INTEGER IDENTITY PRIMARY KEY,
-  name VARCHAR(80)
-);
-CREATE INDEX specialties_name ON specialties (name);
-
-CREATE TABLE vet_specialties (
-  vet_id       INTEGER NOT NULL,
-  specialty_id INTEGER NOT NULL
-);
-ALTER TABLE vet_specialties ADD CONSTRAINT fk_vet_specialties_vets FOREIGN KEY (vet_id) REFERENCES vets (id);
-ALTER TABLE vet_specialties ADD CONSTRAINT fk_vet_specialties_specialties FOREIGN KEY (specialty_id) REFERENCES specialties (id);
-
-CREATE TABLE types (
-  id   INTEGER IDENTITY PRIMARY KEY,
-  name VARCHAR(80)
-);
-CREATE INDEX types_name ON types (name);
 
 CREATE TABLE owners (
   id         INTEGER IDENTITY PRIMARY KEY,
@@ -40,47 +9,25 @@ CREATE TABLE owners (
   last_name  VARCHAR_IGNORECASE(30),
   address    VARCHAR(255),
   city       VARCHAR(80),
-  telephone  VARCHAR(20)
+  telephone  VARCHAR(20),
+  email		 VARCHAR(255)
 );
 CREATE INDEX owners_last_name ON owners (last_name);
 
-CREATE TABLE pets (
-  id         INTEGER IDENTITY PRIMARY KEY,
-  name       VARCHAR(30),
-  birth_date DATE,
-  type_id    INTEGER NOT NULL,
-  owner_id   INTEGER NOT NULL
+CREATE TABLE plants (
+  id                 INTEGER IDENTITY PRIMARY KEY,
+  name               VARCHAR(30),
+  humidity_minimum   INTEGER NOT NULL,
+  humidity_maximum   INTEGER NOT NULL,
+  message 			 VARCHAR(60)
 );
-ALTER TABLE pets ADD CONSTRAINT fk_pets_owners FOREIGN KEY (owner_id) REFERENCES owners (id);
-ALTER TABLE pets ADD CONSTRAINT fk_pets_types FOREIGN KEY (type_id) REFERENCES types (id);
-CREATE INDEX pets_name ON pets (name);
+CREATE INDEX plants_name ON plants (name);
 
-CREATE TABLE visits (
-  id          INTEGER IDENTITY PRIMARY KEY,
-  pet_id      INTEGER NOT NULL,
-  visit_date  DATE,
-  description VARCHAR(255)
+CREATE TABLE sensors (
+  id                 INTEGER IDENTITY PRIMARY KEY,
+  name               VARCHAR(30),
+  humidity           INTEGER NOT NULL,
+  id_plant			 INTEGER
 );
-ALTER TABLE visits ADD CONSTRAINT fk_visits_pets FOREIGN KEY (pet_id) REFERENCES pets (id);
-CREATE INDEX visits_pet_id ON visits (pet_id);
-
-CREATE TABLE products (
-  id   INTEGER IDENTITY PRIMARY KEY,
-  name VARCHAR(80),
-  description CLOB(5K)  
-);
-CREATE INDEX products_name ON products (name);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ALTER TABLE sensors ADD CONSTRAINT fk_sensors_plants FOREIGN KEY (id_plant) REFERENCES plants (id);
+CREATE INDEX sensors_name ON sensors (name);

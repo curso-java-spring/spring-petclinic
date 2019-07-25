@@ -28,12 +28,13 @@ import javax.persistence.MappedSuperclass;
  */
 @MappedSuperclass
 public class NamedEntity extends BaseEntity {
-
+	
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Column(name = "name")
+
+    @Column(name = "name")
     private String name;
 
     public String getName() {

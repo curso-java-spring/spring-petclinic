@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org"
+	th:replace="~{fragments/layout :: layout (~{::body},'plants')}">
+
+<body>
+
+
+	<h2 th:text="#{plant_information}">Plant Information</h2>
+
+
+	<table class="table table-striped" th:object="${plant}">
+		<tr>
+			<th>ID</th>
+			<td th:text="*{id}"></td>
+		</tr>
+		<tr>
+			<th th:text="#{name}">Name</th>
+			<td><b th:text="*{name}"></b></td>
+		</tr>
+		<tr>
+			<th th:text="#{humidity_maximum}">Maximum Humidity</th>
+			<td th:text="*{humidity_maximum}"></td>
+		</tr>
+		<tr>
+			<th th:text="#{humidity_minimum}">Minimum Humidity</th>
+			<td th:text="*{humidity_minimum}"></td>
+		</tr>
+		<tr>
+			<th th:text="#{humidity_range}">Humidity Range</th>
+			<td th:text="*{message}"></td>
+		</tr>
+	</table>
+
+	<h2 th:text="#{sensors_plants}">Plant sensors</h2>
+
+	<table class="table table-striped">
+
+		<tr th:each="s : ${plant.sensors}">
+			<td valign="top">
+				<dl class="dl-horizontal">
+					<dt>ID</dt>
+					<dd th:text="${s.id}" /></dd>
+					<dt th:text="#{name}">Name</dt>
+					<dd th:text="${s.name}" /></dd>
+					<dt th:text="#{humidity_current}">Current Humidity</dt>
+					<dd th:text="${s.humidity}" /></dd>
+				</dl>
+			</td>
+		</tr>
+
+	</table>
+</body>
+
+</html>

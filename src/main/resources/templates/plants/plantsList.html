@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org" 
+th:replace="~{fragments/layout :: layout (~{::body},'plants')}">
+
+  <body>
+
+    <h2 th:text="#{plants}">Plants</h2>
+
+    <table id="plants" class="table table-striped">
+        <thead>
+        <tr>
+        	<th style="width: 150px;">Id</th>
+            <th th:text="#{name}" style="width: 150px;">Name</th>
+            <th th:text="#{humidity_minimum}" style="width: 150px;">Humidity Minimum</th>
+            <th th:text="#{humidity_maximum}" style="width: 150px;">Humidity Maximum</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr th:each="plan : ${plants}">
+              <td>
+                  <a th:href="@{/plants/__${plan.id}__}" th:text="${plan.id}"/></a>
+              </td>
+              <td>
+                  <p th:href="@{/plants/__${plan.id}__}" th:text="${plan.name}"/></p>
+              </td>
+              <td>
+                  <p th:href="@{/plants/__${plan.id}__}" th:text="${plan.humidity_minimum}"/></p>
+              </td>
+              <td>
+                  <p th:href="@{/plants/__${plan.id}__}" th:text="${plan.humidity_maximum}"/></p>
+              </td>
+          </tr>
+        </tbody>
+    </table>
+
+
+  </body>
+</html>
